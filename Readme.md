@@ -11,8 +11,10 @@ Install Android Studio (2.3.3 +)
 At the first startup of Android Studio install the SDK and NDK in Android Studio.
 I recommend doing it directly in android studio so your sdk and ndk directories are set correctly
 
-Build SFML for android (use stlport_shared, otherwise you have to the change the build.gradle file in the template),
+Build SFML for android (use libc++_shared, change the build.gradle file in the template for full c++11 support!),
 have a look at the SFML wiki there is a tutorial. 
+
+For Building SFML with libc++ android-ndk-r12b is required. Afterwards you can use the latest and greatest from android-studio
 
 ## How to use
 

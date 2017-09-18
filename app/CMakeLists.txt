@@ -15,9 +15,14 @@ cmake_minimum_required(VERSION 3.4.1)
 set(CMAKE_SHARED_LINKER_FLAGS
     "${CMAKE_SHARED_LINKER_FLAGS} -u ANativeActivity_onCreate")
 
-include_directories( "C:\\SFML-2.4.2_SRC\\include" )
-link_directories( "C:\\SFML_ANDROID_2.4.2\\lib\\armeabi-v7a" )
+include_directories(${SFML_INCLUDE_DIR})
+link_directories("${SFML_LIBRARY_DIR}${ANDROID_ABI}/")
+link_directories("${SFML_EXT_LIBRARY_DIR}${ANDROID_ABI}/")
 
+message(STATUS "SFML include dir: ${SFML_INCLUDE_DIR}")
+message(STATUS "SFML lib dir: ${SFML_LIBRARY_DIR}${ANDROID_ABI}/")
+message(STATUS "SFML extlib dir: ${SFML_EXT_LIBRARY_DIR}${ANDROID_ABI}/")
+message(STATUS "ABI ${ANDROID_ABI}")
 
 add_library( # Sets the name of the library.
              native-lib

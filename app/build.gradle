@@ -1,5 +1,13 @@
 apply plugin: 'com.android.application'
 
+def ndkDir = System.getenv("ANDROID_NDK")
+def propertiesFile = project.rootProject.file('local.properties')
+if (propertiesFile.exists()) {
+    Properties properties = new Properties()
+    properties.load(propertiesFile.newDataInputStream())
+    ndkDir = properties.getProperty('ndk.dir')
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -13,8 +21,15 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++14 -frtti -fexceptions"
-                arguments "-DANDROID_TOOLCHAIN=clang", "-DANDROID_STL=stlport_shared"
+                arguments "-DANDROID_TOOLCHAIN=clang",
+                        "-DANDROID_STL=c++_shared",
+                        "-DSFML_INCLUDE_DIR=${ndkDir}/sources/sfml/include",
+                        "-DSFML_LIBRARY_DIR=${ndkDir}/sources/sfml/lib/",
+                        "-DSFML_EXT_LIBRARY_DIR=${ndkDir}/sources/sfml/extlibs/lib/"
                 abiFilters 'armeabi-v7a'
+                // multiple ABIs are supported
+                // but you have to compile SFML for every ABI you want to support
+                // abiFilters 'armeabi-v7a',  'armeabi'
             }
         }
     }
@@ -38,7 +53,7 @@ android {
     sourceSets {
         main {
             // let gradle pack the shared library into apk
-            jniLibs.srcDirs = ['C:\\SFML_ANDROID_2.4.2\\lib'/*, 'C:\\SFML-2.4.2_SRC\\extlibs\\libs-android'*/]
+            jniLibs.srcDirs = ["${ndkDir}/sources/sfml/lib", "${ndkDir}/sources/sfml/extlibs/lib/"]
         }
     }
 

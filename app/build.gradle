@@ -24,9 +24,12 @@ android {
                 arguments "-DANDROID_TOOLCHAIN=clang",
                         "-DANDROID_STL=c++_shared",
                         "-DSFML_INCLUDE_DIR=${ndkDir}/sources/sfml/include",
-                        "-DSFML_LIBRARY_DIR=${ndkDir}/sources/sfml/lib/armeabi-v7a/",
-                        "-DSFML_EXT_LIBRARY_DIR=${ndkDir}/sources/sfml/extlibs/lib/armeabi-v7a/"
+                        "-DSFML_LIBRARY_DIR=${ndkDir}/sources/sfml/lib/",
+                        "-DSFML_EXT_LIBRARY_DIR=${ndkDir}/sources/sfml/extlibs/lib/"
                 abiFilters 'armeabi-v7a'
+                // multiple ABIs are supported
+                // but you have to compile SFML for every ABI you want to support
+                // abiFilters 'armeabi-v7a',  'armeabi'
             }
         }
     }
@@ -50,7 +53,7 @@ android {
     sourceSets {
         main {
             // let gradle pack the shared library into apk
-            jniLibs.srcDirs = ['/opt/android-sdk/ndk-bundle/sources/sfml/lib', '/opt/android-sdk/ndk-bundle/sources/sfml/extlibs/lib/']
+            jniLibs.srcDirs = ["${ndkDir}/sources/sfml/lib", "${ndkDir}/sources/sfml/extlibs/lib/"]
         }
     }
 

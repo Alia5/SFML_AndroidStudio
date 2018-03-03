@@ -15,6 +15,7 @@ Build SFML for android (use libc++_shared, change the build.gradle file in the t
 have a look at the SFML wiki there is a tutorial. 
 
 For Building SFML with libc++ android-ndk-r12b is required. Afterwards you can use the latest and greatest from android-studio
+
 **If however, you build SFML from git, you can also build with latest android-ndk**
 
 ## How to use
